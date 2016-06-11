@@ -1,0 +1,64 @@
+---
+  children: 
+    -
+      type: text
+      text: ici du texte adapté à la taille
+    - 
+      title: un projet
+      subtitle: description super light
+      img: unprojet/unprojet_thumb.jpg
+      children: 
+        -
+          type: text
+          text: un autre texte
+        - 
+          type: redirect
+          redirect: "http://utopies-concretes.org"
+        - 
+          type: text
+          text: >
+            un texte
+
+
+            avec des sauts à la ligne
+        - 
+          type: img
+          img: unprojet/uneimage.jpg
+        - 
+          type: img
+          img: unprojet/uneautreimage.gif
+        - 
+          type: text
+          text: >
+            si on écrit très beaucoup, ça finit par être tout petit
+            car ça s'adapte à la taille du bloc !
+
+
+            les sauts à la ligne: faut mettre 2 sauts en fait, ah bon ?
+    - 
+      type: text
+      text: un autre texte
+    - 
+      title: un autre
+      subtitle: ici le sous-titre
+      img: autre/autre_thumb.jpg
+      children: 
+        - 
+          type: text
+          text: >
+            dans le media.yml, s'il y a des caractères bizarres, on met des guillements (par exemple pour les url type vimeo ou redirect
+
+
+            ou alors on met dans un bloc comme ici même !
+        - 
+          type: redirect
+          redirect: "http://www.unsiteexterne.fr"
+        - 
+          type: img
+          img: autre/dessins.jpg
+        - 
+          type: vimeo
+          vimeo: "https://vimeo.com/69411582"
+    - 
+      type: text
+      text: un dernier texte ?
