@@ -1,0 +1,115 @@
+
+
+<div class="me">
+  <div class="author">
+    une adresse mail ?  <i class="fa fa-at"></i> hotcourrier • fr ?
+  </div>
+  <div class="icons">
+    <i class="fa fa-bicycle"></i>
+    <i class="fa fa-terminal"></i>
+    <i class="fa fa-magic"></i>
+    <i class="fa fa-blind"></i>
+    <i class="fa fa-cut"></i>
+  </div>
+  <div class="description">
+     ici on peut mettre ce que l'on veut
+  </div>
+</div>
+
+<div class="container">
+  
+  <!-- ———————————————— A CARDS -->
+  <div class="hidden" ng-repeat-start="a in root.children"></div><div
+    no-animate
+    class="card a"
+    ng-class="{ 
+      opened: now.a == $index,
+      fadesoft:now.a==$index && now.b!=-1,
+      fadeaway:now.a!=$index && now.a!=-1,
+      fadedead:now.a!=$index && now.b!=-1,
+      cartel:!a.title}"
+    ng-click="a.title && clickA(a,$index);">
+    <i class="button opener centered fa fa-chevron-circle-right"></i>
+    <i class="button closer centered fa fa-times-circle"></i>
+    <div ng-if="a.title" class="title meta">{{a.title}}</div>
+    <div ng-if="a.subtitle" class="subtitle meta">{{a.subtitle}}</div>
+    <markdown
+      texttailor
+      tt-resizable="true"
+      tt-center="true"
+      ng-if="a.text"
+      class="text nohighlight"
+      ng-model="a.text">
+    </markdown>
+    <div class="covthumb" ng-class="{cover:a.img}" back-img="{{settings.mediapath}}/{{a.img}}"></div>
+  </div><!-- ———————————————— B CARDS (CHILDREN) --><div
+    no-animate
+    ng-repeat="b in a.children"
+    ng-if="now.a == $parent.$index"
+    class="card b {{b.type}} a_{{$parent.$parent.$index}} b_{{$index}}"
+    ng-class="{
+      last:$last,
+      opened: now.b == $index,
+      fadesoft:now.b!=$index && now.b!=-1,
+      fadeaway:now.a!=$parent.$parent.$index,
+      fadedead:now.a!=$parent.$parent.$index && now.b!=-1}"
+    ng-click="b.type!='redirect' && b.type!='text' && clickB(a,$parent.$parent.$index,b,$index);">
+    <!-- TEXT CONTENT -->
+    <markdown
+      texttailor
+      tt-resizable="true"
+      tt-center="true"
+      ng-if="b.type=='text'"
+      class="text nohighlight"
+      ng-model="b.text">
+    </markdown>
+    <!-- IMAGE -->
+    <div
+      ng-if="b.type=='img'"
+      class="img">
+      <i class="button opener centered blacked fa fa-cut"></i>
+      <div
+        class="covimage cover"
+        back-img="{{settings.mediapath}}/{{b.img}}">
+      </div>
+    </div>
+    <!-- IFRAME CLOSER -->
+    <i
+      ng-if="(b.type=='iframe'||b.type=='vimeo') && now.b==$index"
+      class="button iframecloser coin blackedcoin fa fa-times"
+      ng-click="now.b=-1; $event.stopPropagation();"></i>
+    <!-- IFRAME -->
+    <i
+      ng-if="b.type=='iframe' && now.b!=$index"
+      class="button expander zoomonover centered fa fa-magic"></i>
+    <iframe
+      ng-if="b.type=='iframe' && now.b==$index"
+      class="iframe"
+      ng-class="{nopointer:now.b!=$index, hidden:now.b!=$index}"
+      src="{{b.iframe | allowurl}}" 
+      width="100%"
+      height="100%"
+      frameborder="0"
+      webkitallowfullscreen
+      mozallowfullscreen
+      allowfullscreen>
+    </iframe>
+    <!-- VIMEO -->
+    <iframe
+      ng-if="b.type=='vimeo'" class="vimeo"
+      ng-class="{nopointer:now.b!=$index}"
+      src="{{b.vimeo | allowvimeo}}" 
+      width="100%"
+      height="100%"
+      frameborder="0"
+      webkitallowfullscreen
+      mozallowfullscreen
+      allowfullscreen>
+    </iframe>
+    <!-- REDIRECT -->
+    <a ng-if="b.type=='redirect'" class="redirect" href="{{b.redirect}}" target="_new">
+      <i class="button externaler zoomonover centered fa fa-external-link"></i>
+      <div class="info">{{b.redirect}}</div>
+    </a>
+  </div><div class="hidden" ng-repeat-end></div>
+</div>
